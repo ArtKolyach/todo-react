@@ -1,0 +1,19 @@
+.reg-form{
+    width: 305px;
+    height: auto;
+    box-shadow: 0px 6px 19px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 19px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    box-sizing: border-box;
+    padding: 19px 23px 29px 23px;
+}
+
+.reg-title{
+    font-size: 32px;
+}
+
+
+
+

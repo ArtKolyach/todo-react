@@ -1,22 +1,23 @@
-import React, {useState, useEffect, Fragment} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
+import {Link, useNavigate, redirect} from "react-router-dom";
+import './css/AuthForm.css'
 
 const AuthForm = () => {
-    const [form, setForm] = useState({ login: '', password: '' });
-    const [timeSpent, setTimeSpent] = useState(0);
+    const [form, setForm] = useState({ login: null, password: null });
+    const [warningValue, setWarningValue] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const startTime = new Date();
-        setInterval(() => {
-            const newTime = new Date();
-            setTimeSpent(newTime - startTime);
-        }, 1000)
+        document.title = 'Авторизация';
     }, [])
 
     useEffect(() => {
-        console.log('Login now is', form.login)
-        return () => {
-            console.log('I will rerender')
+        console.log(form)
+
+        if (form.login && form.password) {
+            setWarningValue(null)
         }
     }, [form.login, form.password])
 
@@ -27,7 +28,7 @@ const AuthForm = () => {
         }))
     }
 
-    const handleButtonClick = () => {
+    const handleButtonClick = async () => {
         const authData = {
             username: form.login,
             password: form.password,
@@ -35,15 +36,37 @@ const AuthForm = () => {
 
         console.log(authData);
 
-        void axios.post(
-            "http://25.34.144.36:8000/auth/sign-in",
-            authData,
-        )
+        if (authData.password && authData.username) {
+            try {
+                const response = await axios.post(
+                    "http://25.23.9.220:8000/auth/sign-in",
+                    JSON.stringify(authData),
+                )
+
+                console.log(response)
+
+                setWarningValue(null)
+                navigate('../')
+
+            } catch ({ message, name, code}) {
+                console.log(`${name}: ${code}`)
+
+                switch (code) {
+                    case 'ERR_NETWORK':
+                        setWarningValue('Ошибка соединения')
+                        break;
+                    case 'ERR_BAD_REQUEST':
+                        setWarningValue('Неверные данные авторизации')
+                        break
+                    default: setWarningValue(`Ошибка авторизации\n${name}: ${code}`)
+                }
+            }
+        } else {
+            setWarningValue('Заполните оба поля')
+        }
     }
 
     return (
-        <Fragment>
-            <p>{Math.floor(timeSpent/1000)} секунд вы провели на сайте</p>
             <div className="auth-form">
                 <h1 className="auth-form__title title">Войти</h1>
                 <h2 className="auth-form__description descriptive-text">Введите свои логин и пароль</h2>
@@ -55,12 +78,17 @@ const AuthForm = () => {
                     onChange={handleInputChange}
                 />
                 <input
-                    className="auth-form__password-field text-input"
+                    className="auth-form__password-field text-input last-text-input"
                     type="password"
                     id="password"
                     placeholder="Пароль"
                     onChange={handleInputChange}
                 />
+                <p
+                    className='auth-form_warning-wrapper'
+                >
+                    {warningValue}
+                </p>
                 <input
                     className="auth-form__enter-button button"
                     type="button"
@@ -68,16 +96,13 @@ const AuthForm = () => {
                     value="Вход"
                     onClick={handleButtonClick}
                 />
-                <a
-                    className="auth-form__sign-up-link-wrapper"
-                    href="sign-up.html"
+                <Link
+                    to='/sign-up'
+                    className="auth-form__sign-up-link-wrapper descriptive-text descriptive-text--link"
                 >
-                <span className="auth-form__sign-up-link descriptive-text descriptive-text--link">
                     Регистрация
-                </span>
-                </a>
+                </Link>
             </div>
-        </Fragment>
     );
 }
 

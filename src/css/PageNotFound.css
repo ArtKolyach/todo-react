@@ -1,0 +1,25 @@
+.page-not-found-wrapper {
+    height: available;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.page-not-found-wrapper__title {
+    text-align: center;
+    margin: 0 0 10px 0;
+    font-size: 50px;
+}
+
+.page-not-found-wrapper__description {
+    text-align: center;
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    color: black;
+}
+
+.page-not-found-wrapper__link {
+    text-align: center;
+    font-size: 21px;
+}
