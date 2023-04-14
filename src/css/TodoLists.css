@@ -1,0 +1,11 @@
+.lists-content-wrapper {
+    display: flex;
+    justify-content: start;
+    height: 100vh;
+    padding: 3vh 1vw;
+    box-sizing: border-box;
+}
+
+.lists-header {
+    border-bottom: solid 1px black;
+}

@@ -1,102 +1,114 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
-import './css/RegForm.css'
+import {Link, useNavigate} from "react-router-dom";
+import { IP } from './App.js'
+import {bindReporter} from "web-vitals/dist/modules/lib/bindReporter";
 
 const RegForm = () => {
 
     const [form, setForm] = useState({ login: null, password: null, passwordCheck: null});
     const [warningValue, setWarningValue] = useState(null);
-    const [isAllFieldsFilled, setIsAllFieldsFilled] = useState(null);
-    const [isAllFieldsEmpty, setIsAllFieldsEmpty] = useState(true);
     const [isPasswordsMatch, setIsPasswordsMatch] = useState(null);
     const [isPasswordLong, setIsPasswordLong] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         document.title = 'Регистрация';
     }, [])
 
-    const checkFieldsFilled = (login, password, passwordCheck) => {
-        setIsAllFieldsFilled((login && password && passwordCheck))
-        return isAllFieldsFilled
-    }
-
-    const checkAllFieldsEmpty = (login, password, passwordCheck) => {
-        setIsAllFieldsEmpty(!login && !password && !passwordCheck)
-        return isAllFieldsFilled;
-    }
-
-    const checkPasswordsMatch = (password, passwordCheck) => {
-        setIsPasswordsMatch((password === passwordCheck))
-        return isPasswordsMatch
-    }
-
-    const checkPasswordLong = (password) => {
-        setIsPasswordLong(password.length >= 8 && password.length <= 20)
-        return isPasswordLong
-    }
-
-/*    const checkAll = (login, password, passwordCheck) => {
-        checkFieldsFilled(login, password, passwordCheck);
-        checkPasswordsMatch(password, passwordCheck);
-        if (password !== null)
-            checkPasswordLong(password);
-    }*/
-
-
     useEffect(() => {
-        const {login, password, passwordCheck} = form;
-        const regData = [ ...form ]
 
-        console.log(...regData)
+        const regData = { ...form }
+        const {login, password, passwordCheck} = regData;
 
-        if (checkAllFieldsEmpty(...regData)){
-            setWarningValue(null)
-        } else {
-            if (checkFieldsFilled(...regData)) {
-                if (checkPasswordLong(password, passwordCheck)) {
-                    setWarningValue('Длина пароля')
-                }
+
+/*        if (password && (password.length >= 8) && (password.length <=20)){
+            setIsPasswordLong(true)
+            if (password === passwordCheck) {
+                setIsPasswordsMatch(true);
+                setWarningValue(null);
             }
-        }
-
-
-/*        if (password && (password === passwordCheck)) {
-            setIsPasswordsMatch(true);
-            setWarningValue(null);
-        }
-        else {
-            if (password) {
-                setIsPasswordsMatch(false)
-                setWarningValue('Пароли должны совпадать')
-            } else setWarningValue(null)
+            else {
+                if (password) {
+                    setIsPasswordsMatch(false)
+                    setWarningValue('Пароли должны совпадать')
+                } else setWarningValue(null)
+            }
+        } else {
+            if (password !== null) {
+                setIsPasswordLong(false)
+                setWarningValue('Длина пароля: 8-20 символов')
+            }
         }*/
 
-    }, [form.login, form.password, form.passwordCheck])
+        const loginUsed = checkLogin(login)
+        if (loginUsed) {
+            setWarningValue('Логин уже занят')
+        }
+        else setWarningValue(null)
 
-    const handleInputChange = ({ target: { id, value }}) => {
-        setForm(prevForm => ({
+
+    }, [form.login, form.password, form.passwordCheck, warningValue])
+
+
+
+    const handleInputChange = async ({ target: { id, value }}) => {
+        await setForm(prevForm => ({
             ...prevForm,
             [id]: value
         }))
     }
 
+    const checkLogin = async (login) => {
+        const config = {
+            headers: {
+                'ngrok-skip-browser-warning': 1,
+            }}
+
+            const response = await axios.get(
+                `${IP}/auth/sign-up/${login}`,
+                config
+            )
+            console.log(response.data)
+
+        return response.data
+    }
+
     const handleButtonClick = async () => {
         const regData = {
+            name: null,
             username: form.login,
             password: form.password,
         }
 
-        if (regData.username && isPasswordsMatch) {
+        if (regData.username && isPasswordsMatch && isPasswordLong) {
             try {
-                await axios.post(
-                    "http://25.55.215.5:8000/auth/sign-in",
-                    regData,
+/*                const response = await axios.post(
+                    `http://${IP}/auth/sign-up`,
+                    JSON.stringify(regData),
                 )
+                console.log(response)*/
+                navigate('set-name', { state: {
+                    regData
+                    }})
+
                 setWarningValue(null)
-            } catch (err) {
-                console.log(err);
-                setWarningValue('Ошибка регистрации')
+            } catch (error) {
+                const { name, code } = error;
+
+                console.log(`${name}: ${code}`, error)
+
+                switch (code) {
+                    case 'ERR_NETWORK':
+                        setWarningValue('Ошибка соединения')
+                        break;
+                    case 'ERR_BAD_REQUEST':
+                        setWarningValue('Неверные данные регистрации')
+                        break
+                    default:
+                        setWarningValue(`Ошибка регистрации\n${name}: ${code}`)
+                }
             }
         } else {
             if (!(regData.username && regData.password && form.passwordCheck))
@@ -105,56 +117,58 @@ const RegForm = () => {
     }
 
     return (
-        <div className="reg-form">
-            <h1
-                className="reg-form__title title reg-title"
-            >
-                Регистрация
-            </h1>
-            <h2
-                className="auth-form__description descriptive-text"
-            >
-                Придумайте логин и пароль
-            </h2>
-            <input
-                className="reg-text-input text-input"
-                type="text"
-                id="login"
-                placeholder="Логин"
-                onChange={handleInputChange}
-            />
-            <input
-                className="reg-text-input text-input"
-                type="password"
-                id="password"
-                placeholder="Пароль"
-                onChange={handleInputChange}
-            />
-            <input
-                className="reg-text-input text-input last-text-input"
-                type="password"
-                id="passwordCheck"
-                placeholder="Повторите пароль"
-                onChange={handleInputChange}
-            />
-            <p
-                className='auth-form_warning-wrapper'
-            >
-                {warningValue}
-            </p>
-            <input
-                className="auth-form__enter-button button"
-                type="button"
-                id="login-button"
-                value="Создать аккаунт"
-                onClick={handleButtonClick}
-            />
-            <Link
-                to='/sign-in'
-                className="auth-form__sign-up-link-wrapper descriptive-text descriptive-text--link reg-link"
-            >
-                Уже есть аккаунт
-            </Link>
+        <div className='auth-content-wrapper'>
+            <div className="auth-form reg-form">
+                <h1
+                    className="auth-form__title title"
+                >
+                    Регистрация
+                </h1>
+                <h2
+                    className="auth-form__description descriptive-text"
+                >
+                    Придумайте логин и пароль
+                </h2>
+                <input
+                    className="reg-text-input text-input"
+                    type="text"
+                    id="login"
+                    placeholder="Логин"
+                    onChange={handleInputChange}
+                />
+                <input
+                    className="reg-text-input text-input"
+                    type="password"
+                    id="password"
+                    placeholder="Пароль"
+                    onChange={handleInputChange}
+                />
+                <input
+                    className="reg-text-input text-input last-text-input"
+                    type="password"
+                    id="passwordCheck"
+                    placeholder="Повторите пароль"
+                    onChange={handleInputChange}
+                />
+                <p
+                    className='auth-form_warning-wrapper'
+                >
+                    {warningValue}
+                </p>
+                <input
+                    className="auth-form__enter-button button"
+                    type="button"
+                    id="login-button"
+                    value="Далее"
+                    onClick={handleButtonClick}
+                />
+                <Link
+                    to='/sign-in'
+                    className="auth-form__sign-up-link-wrapper descriptive-text descriptive-text--link reg-link"
+                >
+                    Уже есть аккаунт
+                </Link>
+            </div>
         </div>
     )
 }

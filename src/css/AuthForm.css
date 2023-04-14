@@ -1,6 +1,14 @@
+.auth-content-wrapper {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    padding: 15vh;
+    box-sizing: border-box;
+}
+
 .auth-form{
     width: 305px;
-    height: 382px;
+    height: fit-content;
     box-shadow: 0px 6px 19px 5px rgba(0, 0, 0, 0.2);
     border-radius: 19px;
     display: flex;
@@ -21,10 +29,6 @@
     color: #4659FF;
 }
 .title:hover{cursor: default}
-
-.reg-title{
-    font-size: 32px;
-}
 
 .descriptive-text{
     font-family: 'Roboto', sans-serif;
@@ -52,11 +56,6 @@
     display: flex;
     flex-direction: column;
     justify-content: end;
-    height: 5vh;
-}
-
-.reg-link {
-    height: 4vh;
 }
 
 .text-input {
@@ -87,7 +86,7 @@
     color: rgba(70, 89, 255, 0.5);
 }
 
-.auth-form__enter-button {
+.button {
     min-height: 37px;
     border: none;
     box-sizing: content-box;
@@ -100,9 +99,10 @@
     font-size: 20px;
     line-height: 23px;
     color: #FFFFFF;
+    margin-bottom: 25px;
 }
-.auth-form__enter-button:hover{cursor: pointer}
-.auth-form__enter-button:active {
+.button:hover{cursor: pointer}
+.button:active {
     background: #323ba8;
 }
 

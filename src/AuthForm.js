@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {Link, useNavigate, redirect} from "react-router-dom";
 import './css/AuthForm.css'
+import { IP } from './App.js'
+
 
 const AuthForm = () => {
     const [form, setForm] = useState({ login: null, password: null });
@@ -14,7 +16,6 @@ const AuthForm = () => {
     }, [])
 
     useEffect(() => {
-        console.log(form)
 
         if (form.login && form.password) {
             setWarningValue(null)
@@ -38,27 +39,36 @@ const AuthForm = () => {
 
         if (authData.password && authData.username) {
             try {
-                const response = await axios.post(
-                    "http://25.23.9.220:8000/auth/sign-in",
+                const config = {
+                    headers: {
+                        Authorization: '',
+                        'ngrok-skip-browser-warning': 1,
+                    }}
+                const { data } = await axios.post(
+                    `${IP}/auth/sign-in/`,
                     JSON.stringify(authData),
+                    config
                 )
 
-                console.log(response)
+                console.log(data.token)
+                const userToken = data.token
 
                 setWarningValue(null)
-                navigate('../')
+                navigate('../lists', { state: {
+                        userToken
+                    }})
 
-            } catch ({ message, name, code}) {
-                console.log(`${name}: ${code}`)
+            } catch (error) {
+                console.log(error)
 
-                switch (code) {
+                switch (error.code) {
                     case 'ERR_NETWORK':
                         setWarningValue('Ошибка соединения')
                         break;
                     case 'ERR_BAD_REQUEST':
                         setWarningValue('Неверные данные авторизации')
                         break
-                    default: setWarningValue(`Ошибка авторизации\n${name}: ${code}`)
+                    default: setWarningValue(`Ошибка авторизации\n${error.name}: ${error.code}`)
                 }
             }
         } else {
@@ -67,6 +77,7 @@ const AuthForm = () => {
     }
 
     return (
+        <div className='auth-content-wrapper'>
             <div className="auth-form">
                 <h1 className="auth-form__title title">Войти</h1>
                 <h2 className="auth-form__description descriptive-text">Введите свои логин и пароль</h2>
@@ -103,6 +114,7 @@ const AuthForm = () => {
                     Регистрация
                 </Link>
             </div>
+        </div>
     );
 }
 
