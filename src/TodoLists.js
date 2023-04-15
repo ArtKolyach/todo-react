@@ -78,8 +78,11 @@ const TodoLists = () => {
         console.log(params)
     }, [params])
 
-    const handleButtonClick = () => {
+    const handleGetListsButtonClick = () => {
         getAllLists()
+    }
+    const handleCreateListButtonClick = () => {
+        createList()
     }
 
     return (
@@ -90,7 +93,13 @@ const TodoLists = () => {
                     className="auth-form__enter-button button"
                     type="button"
                     value="Получить листы"
-                    onClick={handleButtonClick}
+                    onClick={handleGetListsButtonClick}
+                />
+                <input
+                    className="auth-form__enter-button button"
+                    type="button"
+                    value="Создать лист"
+                    onClick={handleCreateListButtonClick}
                 />
                 <Link
                     to='/sign-in'

@@ -8,7 +8,7 @@ import SetName from "./SetName";
 import {BrowserRouter, Routes, Route, Link, Navigate} from 'react-router-dom';
 
 /*const IP = 'http://25.23.9.220:8000';*/
-const IP = 'https://a029-80-246-81-211.ngrok-free.app'
+const IP = 'https://ed49-80-246-81-211.ngrok-free.app'
 let userToken
 export { IP, userToken };
 
