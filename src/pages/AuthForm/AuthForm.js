@@ -1,8 +1,13 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {Link, useNavigate, redirect} from "react-router-dom";
-import './css/AuthForm.css'
-import { IP } from './App.js'
+import { useNavigate } from "react-router-dom";
+import {FormWrapper} from "../../components/FormWrapper/FormWrapper";
+import {Form} from "../../components/Form/Form";
+import {TextInput} from "../../components/TextInput/TextInput";
+import {Button} from "../../components/Button/Button";
+import {WarningText} from "../../components/WarningText/WarningText";
+import {Link} from "../../components/Link/Link";
+import { IP } from '../../App.js'
 
 
 const AuthForm = () => {
@@ -77,44 +82,34 @@ const AuthForm = () => {
     }
 
     return (
-        <div className='auth-content-wrapper'>
-            <div className="auth-form">
-                <h1 className="auth-form__title title">Войти</h1>
-                <h2 className="auth-form__description descriptive-text">Введите свои логин и пароль</h2>
-                <input
-                    className="auth-form__login-field text-input"
+        <FormWrapper>
+            <Form
+                title={'Войти'}
+                description={'Введите свои логин и пароль'}
+            >
+                <TextInput
                     type="text"
                     id="login"
                     placeholder="Логин"
                     onChange={handleInputChange}
                 />
-                <input
-                    className="auth-form__password-field text-input last-text-input"
+                <TextInput
                     type="password"
                     id="password"
                     placeholder="Пароль"
                     onChange={handleInputChange}
                 />
-                <p
-                    className='auth-form_warning-wrapper'
-                >
-                    {warningValue}
-                </p>
-                <input
-                    className="auth-form__enter-button button"
-                    type="button"
-                    id="login-button"
-                    value="Вход"
+                <WarningText text={warningValue}/>
+                <Button
+                    text='Вход'
                     onClick={handleButtonClick}
                 />
                 <Link
                     to='/sign-up'
-                    className="auth-form__sign-up-link-wrapper descriptive-text descriptive-text--link"
-                >
-                    Регистрация
-                </Link>
-            </div>
-        </div>
+                    text='Регистрация'
+                />
+            </Form>
+        </FormWrapper>
     );
 }
 

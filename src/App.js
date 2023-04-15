@@ -1,10 +1,10 @@
 import React from "react";
 import './App.css';
-import AuthForm from "./AuthForm";
-import RegForm from "./RegForm";
-import PageNotFound from "./PageNotFound";
-import TodoLists from "./TodoLists";
-import SetName from "./SetName";
+import AuthForm from "./pages/AuthForm/AuthForm";
+import RegForm from "./pages/RegForm/RegForm";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import TodoLists from "./pages/TodoLists/TodoLists";
+import NameForm from "./pages/NameForm/NameForm";
 import {BrowserRouter, Routes, Route, Link, Navigate} from 'react-router-dom';
 
 /*const IP = 'http://25.23.9.220:8000';*/
@@ -23,7 +23,7 @@ function App() {
               <Route path='*' element={<PageNotFound />} />
               <Route path='lists' element={<TodoLists />} />
               <Route path='sign-up' element={<RegForm />} />
-              <Route path='sign-up/set-name' element={<SetName />}/>
+              <Route path='sign-up/set-name' element={<NameForm />}/>
               <Route path='sign-in' element={<AuthForm />} />
           </Routes>
       </BrowserRouter>

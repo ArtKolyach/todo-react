@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {Link, useNavigate} from "react-router-dom";
-import { IP } from './App.js'
-import {bindReporter} from "web-vitals/dist/modules/lib/bindReporter";
+import {useNavigate} from "react-router-dom";
+import { IP } from '../../App.js'
+import {FormWrapper} from "../../components/FormWrapper/FormWrapper";
+import {Form} from "../../components/Form/Form";
+import {TextInput} from "../../components/TextInput/TextInput";
+import {Button} from "../../components/Button/Button";
+import {WarningText} from "../../components/WarningText/WarningText";
+import {Link} from "../../components/Link/Link";
 
 const RegForm = () => {
 
@@ -23,7 +28,7 @@ const RegForm = () => {
         const {login, password, passwordCheck} = regData;
 
 
-/*        if (password && (password.length >= 8) && (password.length <=20)){
+        if (password && (password.length >= 8) && (password.length <=20)){
             setIsPasswordLong(true)
             if (password === passwordCheck) {
                 setIsPasswordsMatch(true);
@@ -40,13 +45,13 @@ const RegForm = () => {
                 setIsPasswordLong(false)
                 setWarningValue('Длина пароля: 8-20 символов')
             }
-        }*/
+        }
 
-        const loginUsed = checkLogin(login)
+/*        const loginUsed = checkLogin(login)
         if (loginUsed) {
             setWarningValue('Логин уже занят')
         }
-        else setWarningValue(null)
+        else setWarningValue(null)*/
 
 
     }, [form.login, form.password, form.passwordCheck, warningValue])
@@ -117,59 +122,40 @@ const RegForm = () => {
     }
 
     return (
-        <div className='auth-content-wrapper'>
-            <div className="auth-form reg-form">
-                <h1
-                    className="auth-form__title title"
-                >
-                    Регистрация
-                </h1>
-                <h2
-                    className="auth-form__description descriptive-text"
-                >
-                    Придумайте логин и пароль
-                </h2>
-                <input
-                    className="reg-text-input text-input"
+        <FormWrapper>
+            <Form
+            title='Регистрация'
+            description='Придумайте логин и пароль'
+            >
+                <TextInput
                     type="text"
                     id="login"
                     placeholder="Логин"
                     onChange={handleInputChange}
                 />
-                <input
-                    className="reg-text-input text-input"
+                <TextInput
                     type="password"
                     id="password"
                     placeholder="Пароль"
                     onChange={handleInputChange}
                 />
-                <input
-                    className="reg-text-input text-input last-text-input"
+                <TextInput
                     type="password"
                     id="passwordCheck"
                     placeholder="Повторите пароль"
                     onChange={handleInputChange}
                 />
-                <p
-                    className='auth-form_warning-wrapper'
-                >
-                    {warningValue}
-                </p>
-                <input
-                    className="auth-form__enter-button button"
-                    type="button"
-                    id="login-button"
-                    value="Далее"
+                <WarningText text={warningValue} />
+                <Button
+                    text='Далее'
                     onClick={handleButtonClick}
                 />
                 <Link
                     to='/sign-in'
-                    className="auth-form__sign-up-link-wrapper descriptive-text descriptive-text--link reg-link"
-                >
-                    Уже есть аккаунт
-                </Link>
-            </div>
-        </div>
+                    text="Уже есть аккаунт"
+                />
+            </Form>
+        </FormWrapper>
     )
 }
 

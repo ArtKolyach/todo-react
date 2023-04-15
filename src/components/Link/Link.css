@@ -1,0 +1,23 @@
+.link {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    margin: 0;
+    color: #4659FF;
+    text-decoration: underline;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+.link:hover {
+    cursor: pointer;
+}
+
+.auth-form__sign-up-link-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}

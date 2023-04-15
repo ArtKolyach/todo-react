@@ -1,0 +1,19 @@
+.form__button {
+    min-height: 37px;
+    border: none;
+    box-sizing: content-box;
+    background: #4659FF;
+    border-radius: 36px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #FFFFFF;
+    margin-bottom: 25px;
+}
+.form__button:hover{cursor: pointer}
+.form__button:active {
+    background: #323ba8;
+}

@@ -1,10 +1,16 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {Link, useNavigate, useLocation, Navigate} from "react-router-dom";
-import { IP } from './App.js'
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { IP } from '../../App.js'
+import {FormWrapper} from "../../components/FormWrapper/FormWrapper";
+import {Form} from "../../components/Form/Form";
+import {TextInput} from "../../components/TextInput/TextInput";
+import {Button} from "../../components/Button/Button";
+import {WarningText} from "../../components/WarningText/WarningText";
+import {Link} from "../../components/Link/Link";
 
 
-const SetName = () => {
+const NameForm = () => {
 
     const [name, setName] = useState(null);
     const [warningValue, setWarningValue] = useState(null);
@@ -44,37 +50,29 @@ const SetName = () => {
     }
 
     return (
-        <div className='auth-content-wrapper'>
-            <div className="auth-form set-name-form">
-                <h1 className="auth-form__title title">Знакомство</h1>
-                <h2 className="auth-form__description descriptive-text">Как к вам обращаться?</h2>
-                <input
-                    className="auth-form__login-field text-input"
+        <FormWrapper>
+            <Form
+                title="Знакомство"
+                description="Как к вам обращаться?"
+            >
+                <TextInput
                     type="text"
                     id="name"
-                    placeholder="Имя"
+                    placeholder="Имя (необязательно)"
                     onChange={handleInputChange}
                 />
-                <p
-                    className='auth-form_warning-wrapper'
-                >
-                </p>
-                <input
-                    className="auth-form__enter-button button"
-                    type="button"
-                    id="login-button"
-                    value="Создать аккаунт"
+                <WarningText/>
+                <Button
+                    text="Создать аккаунт"
                     onClick={handleButtonClick}
                 />
                 <Link
                     to='/sign-up'
-                    className="auth-form__sign-up-link-wrapper descriptive-text descriptive-text--link"
-                >
-                    Назад
-                </Link>
-            </div>
-        </div>
+                    text="Назад"
+                />
+            </Form>
+        </FormWrapper>
     )
 }
 
-export default SetName
+export default NameForm

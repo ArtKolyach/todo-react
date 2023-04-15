@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {IP} from "./App";
-import './css/AuthForm.css'
-import './css/TodoLists.css'
+import {IP} from "../../App";
+import '../AuthForm/AuthForm.css'
+import './TodoLists.css'
 
 const TodoLists = () => {
     const navigate = useNavigate()
