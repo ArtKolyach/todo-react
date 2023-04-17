@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import './PageNotFound.css'
 
 const PageNotFound = () => {
@@ -9,25 +9,24 @@ const PageNotFound = () => {
     }, [])
 
     return (
-        <div className="page-not-found-wrapper">
-
+        <div className='page-not-found-wrapper'>
+            <Link
+                className="page-not-found-wrapper__link"
+                to='/sign-in'
+            >
                 <h1
-                    className="page-not-found-wrapper__title title"
+                    className="page-not-found-wrapper__title"
                 >
                     Ошибка 404
                 </h1>
                 <h2
-                    className="page-not-found-wrapper__description title"
+                    className="page-not-found-wrapper__description"
                 >
                     Страница не найдена
                 </h2>
-            <Link
-                to='/sign-in'
-                className="page-not-found-wrapper__link"
-            >
-                На главную
             </Link>
         </div>
+
     )
 }
 

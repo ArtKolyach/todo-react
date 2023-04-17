@@ -49,14 +49,14 @@ const AuthForm = () => {
                         Authorization: '',
                         'ngrok-skip-browser-warning': 1,
                     }}
-                const { data } = await axios.post(
+                const { data: {token} } = await axios.post(
                     `${IP}/auth/sign-in/`,
                     JSON.stringify(authData),
                     config
                 )
 
-                console.log(data.token)
-                const userToken = data.token
+                console.log(token)
+                const userToken = token
 
                 setWarningValue(null)
                 navigate('../lists', { state: {

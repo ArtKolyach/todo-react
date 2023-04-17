@@ -1,0 +1,30 @@
+.list-form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #E1E1E1;
+    border-radius: 36px;
+    padding: 17px 26px;
+    box-sizing: border-box;
+}
+
+.list-form__header {
+    display: flex;
+}
+
+.list-form__title-wrapper {
+    flex: 1;
+    display: flex;
+}
+
+.list-form__title {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    border: none;
+    margin-left: 15px;
+}
+.list-form__title:focus {
+    outline-width: 0;
+}

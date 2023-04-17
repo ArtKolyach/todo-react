@@ -11,10 +11,15 @@ import {Link} from "../../components/Link/Link";
 
 const RegForm = () => {
 
-    const [form, setForm] = useState({ login: null, password: null, passwordCheck: null});
+    const [form, setForm] = useState({
+        login: null,
+        password: '',
+        passwordCheck: null
+    });
     const [warningValue, setWarningValue] = useState(null);
     const [isPasswordsMatch, setIsPasswordsMatch] = useState(null);
     const [isPasswordLong, setIsPasswordLong] = useState(null);
+    const [isAllFieldsFilled, setIsAllFieldsFilled] = useState(false)
 
     const navigate = useNavigate();
 
@@ -22,13 +27,37 @@ const RegForm = () => {
         document.title = 'Регистрация';
     }, [])
 
+    const validateIsPasswordLong = (password) => {
+        return (password !== '') &&
+            (password.length >= 8) &&
+            (password.length <= 20);
+    }
+
+    const validateIsPasswordsMatch = (password, passwordCheck) => {
+        return (password === passwordCheck)
+    }
+
     useEffect(() => {
 
         const regData = { ...form }
         const {login, password, passwordCheck} = regData;
 
+        setIsPasswordLong(validateIsPasswordLong(password))
+        setIsPasswordsMatch(validateIsPasswordsMatch(password, passwordCheck))
+        console.log(password, passwordCheck, isPasswordLong, isPasswordsMatch)
 
-        if (password && (password.length >= 8) && (password.length <=20)){
+        if (isPasswordLong && isPasswordsMatch) {
+            setWarningValue(null)
+        } else {
+            if (!isPasswordLong) {
+                setWarningValue('Длина пароля: 8-20 символов')
+            } else {
+                setWarningValue('Пароли должны совпадать')
+            }
+        }
+
+
+/*        if (password && (password.length >= 8) && (password.length <=20)){
             setIsPasswordLong(true)
             if (password === passwordCheck) {
                 setIsPasswordsMatch(true);
@@ -45,7 +74,7 @@ const RegForm = () => {
                 setIsPasswordLong(false)
                 setWarningValue('Длина пароля: 8-20 символов')
             }
-        }
+        }*/
 
 /*        const loginUsed = checkLogin(login)
         if (loginUsed) {
@@ -54,12 +83,12 @@ const RegForm = () => {
         else setWarningValue(null)*/
 
 
-    }, [form.login, form.password, form.passwordCheck, warningValue])
+    }, [form.login, form.password, form.passwordCheck])
 
 
 
-    const handleInputChange = async ({ target: { id, value }}) => {
-        await setForm(prevForm => ({
+    const handleInputChange = ({ target: { id, value }}) => {
+        setForm(prevForm => ({
             ...prevForm,
             [id]: value
         }))

@@ -1,18 +1,36 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {IP} from "../../App";
 import '../AuthForm/AuthForm.css'
 import './TodoLists.css'
+import {CreateListComponent} from "./CreateListComponent/CreateListComponent";
+import {ListsWrapper} from "./ListsWrapper/ListsWrapper";
 
 const TodoLists = () => {
     const navigate = useNavigate()
     const params = useLocation()
-    const userToken = params.state.userToken
+
+    const [createListInput, setCreateListInput] = useState('')
+    const [lists, setLists] = useState([])
+
+    const userName = 'Артём'
+
+    useEffect(() => {
+        document.title = 'Главная страница'
+        console.log(params)
+    }, [])
+
+/*    if (params.state !== null) {
+        console.log('Вы не авторизированы')
+        navigate('../sign-in')
+    }
+
+    const userToken = params.state.userToken*/
 
     const config = {
         headers: {
-            Authorization: "Bearer " + userToken,
+/*            Authorization: "Bearer " + userToken,*/
             'ngrok-skip-browser-warning': 1
         },
     };
@@ -73,41 +91,49 @@ const TodoLists = () => {
             });
     };
 
-    useEffect(() => {
-        document.title = 'Главная страница'
-        console.log(params)
-    }, [params])
-
     const handleGetListsButtonClick = () => {
         getAllLists()
     }
+
     const handleCreateListButtonClick = () => {
-        createList()
+        const newLists = [...lists]
+        newLists.push(createListInput)
+        setLists(newLists)
     }
+
+    useEffect(() => {
+        console.log(lists)
+    }, [lists])
+
+    const handleInputChange = ({ target: { value }}) => {
+        setCreateListInput(value)
+    }
+
+    useEffect(() => {
+        console.log(createListInput)
+    }, [createListInput])
 
     return (
         <div className='lists-content-wrapper'>
             <div className='lists-header'>
-                Главная страница
-                <input
-                    className="auth-form__enter-button button"
-                    type="button"
-                    value="Получить листы"
-                    onClick={handleGetListsButtonClick}
-                />
-                <input
-                    className="auth-form__enter-button button"
-                    type="button"
-                    value="Создать лист"
-                    onClick={handleCreateListButtonClick}
-                />
+                <p className='lists-header__greetings'>
+                    Здравствуйте, {userName}
+                </p>
                 <Link
                     to='/sign-in'
-                    className="page-not-found-wrapper__link"
+                    className="lists-header__exit-button"
                 >
-                    Авторизация
+                    Выйти
                 </Link>
             </div>
+            <CreateListComponent
+                id='create-list-input'
+                onChange={handleInputChange}
+                onClick={handleCreateListButtonClick}
+            />
+            <ListsWrapper>
+                {lists}
+            </ListsWrapper>
         </div>
     )
 }
