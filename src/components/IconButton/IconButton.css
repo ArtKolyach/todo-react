@@ -1,0 +1,8 @@
+.icon-button  {
+    object-fit: contain;
+    height: 2vh;
+    align-self: center;
+}
+.icon-button:hover {
+    cursor: pointer;
+}

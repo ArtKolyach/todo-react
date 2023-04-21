@@ -1,0 +1,35 @@
+.form{
+    width: 305px;
+    height: max-content;
+    box-shadow: 0px 6px 19px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 19px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    box-sizing: border-box;
+    padding: 19px 23px 29px 23px;
+}
+
+.form__title{
+    margin: 0 0 8px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+    font-style: normal;
+    font-size: 36px;
+    color: #4659FF;
+}
+.form__title:hover{cursor: default}
+
+.form__descriptive-text{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    color: #353535;
+    margin: 0 0 33px;
+}
+.form__descriptive-text:hover{cursor: default}

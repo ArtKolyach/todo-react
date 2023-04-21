@@ -1,0 +1,32 @@
+/*
+.auth-content-wrapper {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    padding: 15vh;
+    box-sizing: border-box;
+}
+
+
+.descriptive-text--link {
+    margin: 0;
+    color: #4659FF;
+    display: inline-block;
+    text-decoration: underline;
+}
+.descriptive-text--link:hover {
+    cursor: pointer;
+}
+
+.auth-form__sign-up-link-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.auth-form_warning-wrapper {
+    text-align: center;
+    color: red;
+    min-height: 21px;
+    margin: 0 0 20px 0;
+}*/

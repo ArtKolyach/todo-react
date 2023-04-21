@@ -1,0 +1,35 @@
+.page-not-found-wrapper {
+    padding-top: 32vh;
+    display: flex;
+    justify-content: center;
+}
+
+
+.page-not-found-wrapper__title {
+    text-align: center;
+    margin: 0 0 10px 0;
+    font-size: 75px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-style: normal;
+    color: #4659FF;
+}
+
+.page-not-found-wrapper__description {
+    text-align: center;
+    margin: 0;
+    font-size: 26px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-style: normal;
+}
+
+a {
+    all: unset;
+}
+
+a:hover {
+    cursor: pointer;
+}

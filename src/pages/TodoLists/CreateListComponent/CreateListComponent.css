@@ -1,0 +1,24 @@
+.create-list-wrapper {
+    display: flex;
+    min-height: 5.5vh;
+    margin-bottom: 11px;
+}
+
+.create-list-wrapper__input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    border-radius: 36px 0 0 36px;
+    flex: 1;
+    font-size: 20px;
+}
+.create-list-wrapper__input::-webkit-input-placeholder {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#create-list-wrapper__button {
+    padding: 0 28px 0 21px;
+    margin: 0;
+    border-radius: 0 36px 36px 0;
+}

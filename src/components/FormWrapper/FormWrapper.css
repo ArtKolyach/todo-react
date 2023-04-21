@@ -1,0 +1,7 @@
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    padding: 15vh;
+    box-sizing: border-box;
+}

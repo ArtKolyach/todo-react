@@ -1,0 +1,44 @@
+.lists-content-wrapper {
+    height: 100vh;
+    padding: 0 1vw;
+    box-sizing: border-box;
+}
+
+.lists-header {
+    display: flex;
+    justify-content: center;
+    padding: 2vh 0;
+}
+
+.lists-header__greetings {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+    color: #4659FF;
+    margin: 0;
+    flex: 2;
+}
+.lists-header__greetings:hover{
+    cursor: default;
+}
+
+.lists-header__exit-button {
+    margin: 0 24px 0 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+    color: #FF4343;
+}
+.lists-header__exit-button:hover {
+    cursor: pointer;
+}
+
+#lists-warning-text {
+    margin: 0 0 10px 0;
+}
