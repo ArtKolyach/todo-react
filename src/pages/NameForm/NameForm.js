@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
-import { IP } from '../../App.js'
+import { IP, NGROK_TOKEN } from '../../App.js'
 import {FormWrapper} from "../../components/FormWrapper/FormWrapper";
 import {Form} from "../../components/Form/Form";
 import {TextInput} from "../../components/TextInput/TextInput";
@@ -11,6 +11,12 @@ import {Link} from "../../components/Link/Link";
 
 
 const NameForm = () => {
+
+    const config = {
+        headers: {
+            ...NGROK_TOKEN
+        },
+    };
 
     const [name, setName] = useState(null);
     const [warningValue, setWarningValue] = useState(null);
@@ -38,8 +44,9 @@ const NameForm = () => {
             try {
                 console.log('Отправляю', regData)
                 const response = await axios.post(
-                    `${IP}/auth/sign-up`,
+                    `${IP}/auth/sign-up/`,
                     JSON.stringify(regData),
+                    config
                 )
                 console.log(response)
                 navigate('../../sign-in')

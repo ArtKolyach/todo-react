@@ -1,0 +1,33 @@
+.item-form {
+    display: flex;
+    margin-bottom: 7px;
+}
+.item-form:last-child {
+    margin-bottom: 0;
+}
+.item-form:hover .delete-item {
+    opacity: 1;
+}
+
+.item-form__title {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    border: none;
+    margin-left: 8px;
+    width: 100%;
+}
+.item-form__title:focus {
+    outline-width: 0;
+}
+.item-form__title::-webkit-input-placeholder {
+    color: rgba(70, 89, 255, 0.5);
+}
+
+.delete-item {
+    margin-right: 10px;
+    height: 1.5vh;
+    opacity: 0;
+}

@@ -3,14 +3,20 @@ import './App.css';
 import AuthForm from "./pages/AuthForm/AuthForm";
 import RegForm from "./pages/RegForm/RegForm";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
-import TodoLists from "./pages/TodoLists/TodoLists";
+import {TodoLists} from "./pages/TodoLists/TodoLists";
 import NameForm from "./pages/NameForm/NameForm";
 import {BrowserRouter, Routes, Route, Link, Navigate} from 'react-router-dom';
 
-/*const IP = 'http://25.23.9.220:8000';*/
-const IP = 'https://fb31-80-246-81-211.ngrok-free.app'
-let userToken
-export { IP, userToken };
+// const IP = 'https://d3a0-80-246-81-201.ngrok-free.app'
+const IP = 'http://localhost:8000'
+
+const NGROK_TOKEN = {'ngrok-skip-browser-warning': 1}
+const config = {
+    headers: {
+        'ngrok-skip-browser-warning': 1
+    },
+};
+export { IP, NGROK_TOKEN, config };
 
 function App() {
 

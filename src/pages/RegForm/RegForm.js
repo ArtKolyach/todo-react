@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import { IP } from '../../App.js'
+import { IP, NGROK_TOKEN } from '../../App.js'
 import {FormWrapper} from "../../components/FormWrapper/FormWrapper";
 import {Form} from "../../components/Form/Form";
 import {TextInput} from "../../components/TextInput/TextInput";
@@ -11,15 +11,23 @@ import {Link} from "../../components/Link/Link";
 
 const RegForm = () => {
 
+    const config = {
+        headers: {
+            ...NGROK_TOKEN
+        },
+    };
+
     const [form, setForm] = useState({
         login: null,
-        password: '',
-        passwordCheck: null
+        password: null,
+        passwordCheck: null,
     });
     const [warningValue, setWarningValue] = useState(null);
     const [isPasswordsMatch, setIsPasswordsMatch] = useState(null);
     const [isPasswordLong, setIsPasswordLong] = useState(null);
-    const [isAllFieldsFilled, setIsAllFieldsFilled] = useState(false)
+    const [isAllFieldsEmpty, setIsAllFieldsEmpty] = useState(true)
+    const [isLoginTaken, setIsLoginTaken] = useState()
+    const [isAllValidated, setIsAllValidated] = useState(false)
 
     const navigate = useNavigate();
 
@@ -27,86 +35,87 @@ const RegForm = () => {
         document.title = 'Регистрация';
     }, [])
 
-    const validateIsPasswordLong = (password) => {
-        return (password !== '') &&
-            (password.length >= 8) &&
-            (password.length <= 20);
+    const validateIsPasswordLong = async () => {
+        if (form.password === null) return null
+        return (form.password !== '') &&
+            (form.password.length >= 8) &&
+            (form.password.length <= 20);
     }
 
-    const validateIsPasswordsMatch = (password, passwordCheck) => {
-        return (password === passwordCheck)
+    const validateIsPasswordsMatch = async () => {
+        if (form.passwordCheck === null || form.passwordCheck === '') return null
+        return (form.password === form.passwordCheck)
+    }
+
+    const validateAllFieldsFilled = async () => {
+        const props = Object.values(form);
+        return props.reduce((acc, current) =>
+            acc && Boolean(current))
+    }
+
+    const validateIsAllFieldsEmpty = async () => {
+        const props = Object.values(form);
+        return  !(props.reduce((acc, current) =>
+            acc || Boolean(current)))
+    }
+
+    const validateLoginTaken = async () => {
+        const response = await axios.get(
+            `${IP}/auth/sign-up?username=${form.login}`,
+            config
+        )
+        return response.data
+    }
+
+    const validateAll = async () => {
+        await setIsAllFieldsEmpty(await validateIsAllFieldsEmpty())
+        await setIsLoginTaken(await validateLoginTaken())
+        await setIsPasswordLong(await validateIsPasswordLong())
+        await setIsPasswordsMatch(await validateIsPasswordsMatch())
+        console.log('Провалидировано', isPasswordLong)
     }
 
     useEffect(() => {
+        console.log('Запуск изменения варнинга на ререндере')
+        changeWarningValue()
+    }, [isPasswordLong,
+        isPasswordsMatch,
+        isAllFieldsEmpty,
+        isLoginTaken])
 
-        const regData = { ...form }
-        const {login, password, passwordCheck} = regData;
-
-        setIsPasswordLong(validateIsPasswordLong(password))
-        setIsPasswordsMatch(validateIsPasswordsMatch(password, passwordCheck))
-        console.log(password, passwordCheck, isPasswordLong, isPasswordsMatch)
-
-        if (isPasswordLong && isPasswordsMatch) {
-            setWarningValue(null)
+    const changeWarningValue = async () => {
+        console.log('Изменяю варнинг')
+        if (isAllFieldsEmpty) {
+            setWarningValue('Все поля пусты')
         } else {
-            if (!isPasswordLong) {
+            console.log('Проверка логина')
+            if (form.login && isLoginTaken) {
+                setWarningValue('Логин занят')
+                return
+            }
+            console.log('Проверка длины пароля')
+            if (form.password && !isPasswordLong) {
                 setWarningValue('Длина пароля: 8-20 символов')
-            } else {
+                return
+            }
+            console.log(form.password, form.passwordCheck,  isPasswordLong, !isPasswordsMatch)
+            if (form.password && form.passwordCheck && !isPasswordsMatch) {
                 setWarningValue('Пароли должны совпадать')
+                return
             }
+            setWarningValue('Всё ок')
         }
+    }
 
-
-/*        if (password && (password.length >= 8) && (password.length <=20)){
-            setIsPasswordLong(true)
-            if (password === passwordCheck) {
-                setIsPasswordsMatch(true);
-                setWarningValue(null);
-            }
-            else {
-                if (password) {
-                    setIsPasswordsMatch(false)
-                    setWarningValue('Пароли должны совпадать')
-                } else setWarningValue(null)
-            }
-        } else {
-            if (password !== null) {
-                setIsPasswordLong(false)
-                setWarningValue('Длина пароля: 8-20 символов')
-            }
-        }*/
-
-/*        const loginUsed = checkLogin(login)
-        if (loginUsed) {
-            setWarningValue('Логин уже занят')
-        }
-        else setWarningValue(null)*/
-
-
-    }, [form.login, form.password, form.passwordCheck])
-
-
+    useEffect(() => {
+        validateAll()
+    }, [form])
 
     const handleInputChange = ({ target: { id, value }}) => {
         setForm(prevForm => ({
             ...prevForm,
             [id]: value
         }))
-    }
-
-    const checkLogin = async (login) => {
-        const config = {
-            headers: {
-                'ngrok-skip-browser-warning': 1,
-            }}
-
-            const response = await axios.get(
-                `${IP}/auth/sign-up/${login}`,
-                config
-            )
-            console.log(response.data)
-
-        return response.data
     }
 
     const handleButtonClick = async () => {
@@ -116,18 +125,11 @@ const RegForm = () => {
             password: form.password,
         }
 
-        if (regData.username && isPasswordsMatch && isPasswordLong) {
+        if (!isLoginTaken && isPasswordLong && isPasswordsMatch ) {
             try {
-/*                const response = await axios.post(
-                    `http://${IP}/auth/sign-up`,
-                    JSON.stringify(regData),
-                )
-                console.log(response)*/
                 navigate('set-name', { state: {
                     regData
                     }})
-
-                setWarningValue(null)
             } catch (error) {
                 const { name, code } = error;
 
@@ -146,7 +148,7 @@ const RegForm = () => {
             }
         } else {
             if (!(regData.username && regData.password && form.passwordCheck))
-                setWarningValue('Все поля должны быть заполнены')
+                setWarningValue('Заполните все поля')
         }
     }
 

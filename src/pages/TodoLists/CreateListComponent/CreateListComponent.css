@@ -1,7 +1,7 @@
 .create-list-wrapper {
     display: flex;
     min-height: 5.5vh;
-    margin-bottom: 41px;
+    margin-bottom: 11px;
 }
 
 .create-list-wrapper__input {

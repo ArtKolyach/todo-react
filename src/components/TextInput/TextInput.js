@@ -9,6 +9,7 @@ export const TextInput = (props) => {
             id={props.id}
             placeholder={props.placeholder}
             onChange={props.onChange}
+            onKeyDown={props.onKeyDown}
         />
     )
 }

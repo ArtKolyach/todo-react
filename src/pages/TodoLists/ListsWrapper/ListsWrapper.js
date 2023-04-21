@@ -1,12 +1,23 @@
 import React from "react";
+import './ListWrapper.css'
 import {ListForm} from "../ListForm/ListForm";
 
-export const ListsWrapper = ({children}) => {
+export const ListsWrapper = ({children, listCommands, config, getAllLists}) => {
+
+
     return (
-        <div>
+        <div className='list-wrapper'>
             {
                 children.map(list =>
-                    (<ListForm>{list}</ListForm>)
+                    (<ListForm
+                        key={list.id}
+                        listId={list.id}
+                        listCommands={listCommands}
+                        config = {config}
+                        getAllLists={getAllLists}
+                    >
+                        {list.title}
+                    </ListForm>)
                 )
             }
         </div>

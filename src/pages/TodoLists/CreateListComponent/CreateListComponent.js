@@ -3,7 +3,7 @@ import './CreateListComponent.css'
 import {TextInput} from "../../../components/TextInput/TextInput";
 import {Button} from "../../../components/Button/Button";
 
-export const CreateListComponent = ({onChange, id, onClick}) => {
+export const CreateListComponent = ({onChange, onKeyDown, id, onClick}) => {
     return (
         <div className='create-list-wrapper'>
             <TextInput
@@ -12,6 +12,7 @@ export const CreateListComponent = ({onChange, id, onClick}) => {
                 className='create-list-wrapper__input'
                 placeholder='Новая задача...'
                 onChange={onChange}
+                onKeyDown={onKeyDown}
             />
             <Button
                 text='Добавить'

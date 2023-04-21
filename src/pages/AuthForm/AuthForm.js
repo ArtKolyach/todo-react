@@ -7,7 +7,7 @@ import {TextInput} from "../../components/TextInput/TextInput";
 import {Button} from "../../components/Button/Button";
 import {WarningText} from "../../components/WarningText/WarningText";
 import {Link} from "../../components/Link/Link";
-import { IP } from '../../App.js'
+import { IP, config } from '../../App.js'
 
 
 const AuthForm = () => {
@@ -44,18 +44,12 @@ const AuthForm = () => {
 
         if (authData.password && authData.username) {
             try {
-                const config = {
-                    headers: {
-                        Authorization: '',
-                        'ngrok-skip-browser-warning': 1,
-                    }}
                 const { data: {token} } = await axios.post(
                     `${IP}/auth/sign-in/`,
                     JSON.stringify(authData),
                     config
                 )
 
-                console.log(token)
                 const userToken = token
 
                 setWarningValue(null)
