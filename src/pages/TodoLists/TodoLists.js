@@ -64,16 +64,16 @@ export const TodoLists = () => {
             title: newTitle,
         };
 
-        try {
-            const response = await axios.post(`${LISTS_URL}/`,
-                JSON.stringify(newListData),
-                config)
-            console.log("Создан\n");
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-            setWarningValue(`Ошибка ${error.code}`)
-        }
+            try {
+                const response = await axios.post(`${LISTS_URL}/`,
+                    JSON.stringify(newListData),
+                    config)
+                console.log("Создан\n");
+                console.log(response);
+            } catch (error) {
+                console.log(error);
+                setWarningValue(`Ошибка ${error.code}`)
+            }
     };
 
     const getAllLists = async () => {
@@ -87,22 +87,26 @@ export const TodoLists = () => {
                 setLists([])
             }
         } catch (error) {
-                    console.log(error)
+            console.log(error)
             setWarningValue('Ошибка соединения')
         }
     }
 
         const handleCreateListButtonClick = async () => {
-            await createList(createListInput)
-            console.log('Обновляю листы по нажатию')
-            getAllLists()
+            if (createListInput !== '') {
+                await createList(createListInput)
+                console.log('Обновляю листы по нажатию')
+                getAllLists()
+            }
         }
 
         const handleKeyDown = async ({key}) => {
-            if (key === 'Enter') {
-                await createList(createListInput)
-                console.log('Обновляю листы по кнопке')
-                getAllLists()
+            if (createListInput !== '') {
+                if (key === 'Enter') {
+                    await createList(createListInput)
+                    console.log('Обновляю листы по кнопке')
+                    getAllLists()
+                }
             }
         }
 

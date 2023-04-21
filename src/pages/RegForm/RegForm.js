@@ -86,7 +86,7 @@ const RegForm = () => {
     const changeWarningValue = async () => {
         console.log('Изменяю варнинг')
         if (isAllFieldsEmpty) {
-            setWarningValue('Все поля пусты')
+            setWarningValue(null)
         } else {
             console.log('Проверка логина')
             if (form.login && isLoginTaken) {
@@ -103,7 +103,7 @@ const RegForm = () => {
                 setWarningValue('Пароли должны совпадать')
                 return
             }
-            setWarningValue('Всё ок')
+            setWarningValue(null)
         }
     }
 

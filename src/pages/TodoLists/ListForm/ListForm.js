@@ -7,8 +7,7 @@ import restoreListButton from '../../../icons/restore-button.svg'
 import addButton from '../../../icons/add-button.svg'
 import {IconButton} from "../../../components/IconButton/IconButton";
 import {ItemForm} from "./ItemForm/ItemForm";
-import axios from "axios";
-import {IP} from "../../../App";
+import { IP, tryRequest} from "../../../App";
 import {getListItems, createListItem, updateList, deleteList} from "../../../utils/axiosRequests.js";
 
 export const ListForm = (props) => {
@@ -24,16 +23,10 @@ export const ListForm = (props) => {
 
     useEffect(() => {
         changeItems()
-
-        return (() => {
-                // console.log(isDeleted)
-                // // deleteList(...requestProps)
-                // alert('Лавочка закрывается')
-        })
     }, [])
 
     useEffect(() => {
-        updateList(titleValue, isChecked, ...requestProps)
+        tryRequest(updateList(titleValue, isChecked, ...requestProps))
     }, [titleValue, isChecked])
 
     const changeItems = async () => {
@@ -74,8 +67,8 @@ export const ListForm = (props) => {
         return (
             <div className='list-form'
                  style={{
-                     backgroundColor: isChecked || isDeleted ? "#E1E1E1" : "white",
-                     opacity: isDeleted ? 0.3 : 1,
+                     backgroundColor: isChecked || isDeleted ? "#ebebeb" : "white",
+                     opacity: isDeleted ? 0.4 : 1,
                  }}
             >
                 <div

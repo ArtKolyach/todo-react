@@ -16,7 +16,14 @@ const config = {
         'ngrok-skip-browser-warning': 1
     },
 };
-export { IP, NGROK_TOKEN, config };
+const tryRequest = (requestFunc) =>{
+    try {
+        requestFunc()
+    } catch (error) {
+        return 'Ошибка соединения'
+    }
+}
+export { IP, NGROK_TOKEN, config, tryRequest };
 
 function App() {
 
