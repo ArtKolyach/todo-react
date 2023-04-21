@@ -1,8 +1,9 @@
 import axios from "axios";
 
-export const updateList = async (newTitle, url, listID, config) => {
+export const updateList = async (newTitle, newDone, url, listID, config) => {
     const newListData = {
         title: newTitle,
+        done: newDone,
     }
 
     try {

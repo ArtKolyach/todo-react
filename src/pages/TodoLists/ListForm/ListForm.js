@@ -13,7 +13,7 @@ import {getListItems, createListItem, updateList, deleteList} from "../../../uti
 
 export const ListForm = (props) => {
     const [titleValue, setTitleValue] = useState(props.children)
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(props.listChecked)
     const [isDeleted, setIsDeleted] = useState(false)
     const [items, setItems] = useState([])
     const [isExpanded, setIsExpanded] = useState(false)
@@ -33,8 +33,8 @@ export const ListForm = (props) => {
     }, [])
 
     useEffect(() => {
-        updateList(titleValue, ...requestProps)
-    }, [titleValue])
+        updateList(titleValue, isChecked, ...requestProps)
+    }, [titleValue, isChecked])
 
     const changeItems = async () => {
         const newItems = await getListItems(...requestProps)
@@ -48,7 +48,6 @@ export const ListForm = (props) => {
 
     const handleCheckButtonClick = () => {
         setIsChecked(prevState => !prevState)
-        console.log(isChecked)
     }
 
     const handleTitleChange = (event) => {

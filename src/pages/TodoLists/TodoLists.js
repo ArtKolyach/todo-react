@@ -87,7 +87,8 @@ export const TodoLists = () => {
                 setLists([])
             }
         } catch (error) {
-            console.log(error);
+                    console.log(error)
+            setWarningValue('Ошибка соединения')
         }
     }
 
@@ -128,8 +129,8 @@ export const TodoLists = () => {
                 </div>
                 <CreateListComponent
                     id='create-list-input'
-                    onChange={handleInputChange}
                     onClick={handleCreateListButtonClick}
+                    onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                 />
                 <WarningText

@@ -13,6 +13,7 @@ export const ListsWrapper = ({children, listCommands, config, getAllLists}) => {
                         key={list.id}
                         listId={list.id}
                         listCommands={listCommands}
+                        listChecked={list.done}
                         config = {config}
                         getAllLists={getAllLists}
                     >

@@ -11,11 +11,7 @@ import {deleteListItem, updateListItem, getListItem} from "../../../../utils/axi
 export const ItemForm = (props) => {
 
     const [titleValue, setTitleValue] = useState(props.children)
-    const [isChecked, setIsChecked] = useState()
-
-    useEffect(() => {
-        setIsChecked(props.itemChecked)
-    }, [])
+    const [isChecked, setIsChecked] = useState(props.itemChecked)
 
     const changeItems = async () => {
         await updateListItem(titleValue, isChecked, ...requestProps)

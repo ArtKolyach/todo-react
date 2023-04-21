@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import './TextInput.css'
+import * as events from "events";
 
 export const TextInput = (props) => {
+
     return (
         <input
             className={'text-input ' + props.className}
