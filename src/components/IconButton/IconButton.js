@@ -8,6 +8,7 @@ export const IconButton = (props) => {
             alt={props.alt}
             src={props.src}
             onClick={props.onClick}
+            style={props.style}
         />
     )
 }

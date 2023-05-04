@@ -1,4 +1,4 @@
-.list-form {
+.list-form__content {
     display: flex;
     flex-direction: column;
     border: 1px solid #E1E1E1;
@@ -37,5 +37,18 @@
 
 .list-form-button__add-list-item {
     margin-right: 10px;
+}
+
+.list-form__expand {
+    height: 17px;
+    border: 1px solid #E1E1E1;
+    border-radius: 36px;
+    padding: 17px 26px;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+.expand-list-button {
+    margin-left: 10.5px;
 }
 

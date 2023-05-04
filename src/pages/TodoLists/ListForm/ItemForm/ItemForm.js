@@ -38,8 +38,15 @@ export const ItemForm = (props) => {
         setIsChecked(prevState => !prevState)
     }
 
+    const handleKeyDown = ({key}) => {
+        if (key === 'Enter') {
+            props.createItem()
+        }
+    }
+
     return (
-        <div className='item-form'>
+        <div className='item-form'
+        >
             <IconButton
                 className='delete-item'
                 src={deleteItemButton}
@@ -53,14 +60,16 @@ export const ItemForm = (props) => {
                         onClick={handleCheckButtonClick}
                     />
             <input
-                        className='item-form__title'
+                        className={`item-form__title ${props.index}`}
                         type="text"
                         onChange={handleTitleChange}
+                        onKeyDown={handleKeyDown}
                         value={titleValue}
                         style={{textDecoration: isChecked ? 'line-through' : 'none',
                             backgroundColor:'inherit'
                         }}
                         placeholder='Новый пункт...'
+                        ref={props.ref}
                     />
         </div>
     )

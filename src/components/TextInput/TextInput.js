@@ -12,6 +12,7 @@ export const TextInput = (props) => {
             placeholder={props.placeholder}
             onChange={props.onChange}
             onKeyDown={props.onKeyDown}
+            // ref={props.ref}
         />
     )
 }

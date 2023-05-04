@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {IP, NGROK_TOKEN} from "../../App";
@@ -118,8 +118,13 @@ export const TodoLists = () => {
             setCreateListInput(value)
         }
 
+/*        const ref = useRef()
+        const testRef = useRef()*/
+
         return (
             <div className='lists-content-wrapper'>
+{/*                <input type={"button"} value={"Фокус"} onClick={testRef.current.focus}/>
+                <input type={"text"} ref={testRef}/>*/}
                 <div className='lists-header'>
                     <p className='lists-header__greetings'>
                         {`Здравствуйте` + (name ? ", " + name : '')}
@@ -136,6 +141,7 @@ export const TodoLists = () => {
                     onClick={handleCreateListButtonClick}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
+/*                    ref={ref}*/
                 />
                 <WarningText
                     text={warningValue}
