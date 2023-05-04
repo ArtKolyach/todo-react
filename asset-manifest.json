@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/todo-react/static/css/main.8ae5b241.css",
+    "main.js": "/todo-react/static/js/main.cf0fb17b.js",
+    "static/js/787.7b5a45f4.chunk.js": "/todo-react/static/js/787.7b5a45f4.chunk.js",
+    "static/media/close-list-button.svg": "/todo-react/static/media/close-list-button.f6599c39816a23333f8014b25198a220.svg",
+    "static/media/expand-list-button.svg": "/todo-react/static/media/expand-list-button.f8e8b4bb1c0911b2d0888354fe0238ef.svg",
+    "static/media/restore-button.svg": "/todo-react/static/media/restore-button.b2e83617077f41fdd5b05457f6d5b532.svg",
+    "index.html": "/todo-react/index.html",
+    "static/media/add-button.svg": "/todo-react/static/media/add-button.64375a0e7516a3ff99c3b1c8f8c7eae1.svg",
+    "static/media/filled-checkbox.svg": "/todo-react/static/media/filled-checkbox.3c59bc86449c014a8930b9a9639b2b52.svg",
+    "static/media/delete-button.svg": "/todo-react/static/media/delete-button.26142adf9fb2825725b7ab8b7697bb34.svg",
+    "static/media/delete-item-button.svg": "/todo-react/static/media/delete-item-button.57ddf98abdc4cd44bddcb74af902678c.svg",
+    "static/media/empty-checkbox.svg": "/todo-react/static/media/empty-checkbox.0c23b3aef0143bbcba0525e02b31eb4f.svg",
+    "main.8ae5b241.css.map": "/todo-react/static/css/main.8ae5b241.css.map",
+    "main.cf0fb17b.js.map": "/todo-react/static/js/main.cf0fb17b.js.map",
+    "787.7b5a45f4.chunk.js.map": "/todo-react/static/js/787.7b5a45f4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8ae5b241.css",
+    "static/js/main.cf0fb17b.js"
+  ]
+}
