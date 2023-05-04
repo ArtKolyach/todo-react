@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/todo-react/static/css/main.8ae5b241.css",
-    "main.js": "/todo-react/static/js/main.cf0fb17b.js",
+    "main.js": "/todo-react/static/js/main.29116512.js",
     "static/js/787.7b5a45f4.chunk.js": "/todo-react/static/js/787.7b5a45f4.chunk.js",
     "static/media/close-list-button.svg": "/todo-react/static/media/close-list-button.f6599c39816a23333f8014b25198a220.svg",
     "static/media/expand-list-button.svg": "/todo-react/static/media/expand-list-button.f8e8b4bb1c0911b2d0888354fe0238ef.svg",
@@ -13,11 +13,11 @@
     "static/media/delete-item-button.svg": "/todo-react/static/media/delete-item-button.57ddf98abdc4cd44bddcb74af902678c.svg",
     "static/media/empty-checkbox.svg": "/todo-react/static/media/empty-checkbox.0c23b3aef0143bbcba0525e02b31eb4f.svg",
     "main.8ae5b241.css.map": "/todo-react/static/css/main.8ae5b241.css.map",
-    "main.cf0fb17b.js.map": "/todo-react/static/js/main.cf0fb17b.js.map",
+    "main.29116512.js.map": "/todo-react/static/js/main.29116512.js.map",
     "787.7b5a45f4.chunk.js.map": "/todo-react/static/js/787.7b5a45f4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8ae5b241.css",
-    "static/js/main.cf0fb17b.js"
+    "static/js/main.29116512.js"
   ]
 }
