@@ -15,3 +15,6 @@
 https://youtu.be/vVzGgmpGGiY
 
 [![Todo using ReactJS](https://img.youtube.com/vi/vVzGgmpGGiY/0.jpg)](https://www.youtube.com/watch?v=vVzGgmpGGiY)
+
+### Бэк-енд можно посмотреть по ссылке:
+https://github.com/joinusordie/app_todo
